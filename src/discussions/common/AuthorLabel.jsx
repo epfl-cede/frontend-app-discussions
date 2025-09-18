@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { generatePath, Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 
+import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 import { useIntl } from '@edx/frontend-platform/i18n';
 
 import { Routes } from '../../data/constants';
@@ -28,6 +29,7 @@ const AuthorLabel = ({
   const intl = useIntl();
   const { courseId, enableInContextSidebar } = useContext(DiscussionContext);
   const { icon, authorLabelMessage } = useMemo(() => getAuthorLabel(intl, authorLabel), [authorLabel]);
+  const displayname = getAuthenticatedUser().name || author;
 
   const isRetiredUser = author ? author.startsWith('retired__user') : false;
   const showTextPrimary = !authorLabelMessage && !isRetiredUser && !alert;
@@ -45,7 +47,7 @@ const AuthorLabel = ({
       role="heading"
       aria-level="2"
     >
-      {isRetiredUser ? '[Deactivated]' : author}
+      {isRetiredUser ? '[Deactivated]' : displayname}
     </span>
   ), [author, authorLabelMessage, isRetiredUser]);
 
