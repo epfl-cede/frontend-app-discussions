@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import { getConfig } from '@edx/frontend-platform';
+import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
+
 import { Routes } from '../../../data/constants';
 import DiscussionContext from '../../common/context';
 import { discussionsPath } from '../../utils';
@@ -19,6 +22,10 @@ const LearnerCard = ({ learner }) => {
     learnerUsername: learner.username,
     courseId,
   })();
+  let displayname = username;
+  if (getConfig().CATALOG_BASE_URL && getAuthenticatedUser().name) {
+    displayname = getAuthenticatedUser().name;
+  }
 
   return (
     <Link
@@ -39,7 +46,7 @@ const LearnerCard = ({ learner }) => {
               <div
                 className="text-truncate font-weight-500 text-primary-500 font-style"
               >
-                {username}
+                {displayname}
               </div>
             </div>
             {threads !== null && (
