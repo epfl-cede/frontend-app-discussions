@@ -34,7 +34,7 @@ const PostLink = ({
     learnerUsername,
   } = useContext(DiscussionContext);
   const {
-    topicId, hasEndorsed, type, author, authorLabel, abuseFlagged, abuseFlaggedCount, read, commentCount,
+    topicId, hasEndorsed, type, author, authorName, authorLabel, abuseFlagged, abuseFlaggedCount, read, commentCount,
     unreadCommentCount, id, pinned, previewBody, title, voted, voteCount, following, groupId, groupName, createdAt,
     users: postUsers,
   } = useSelector(selectThread(postId));
@@ -133,6 +133,7 @@ const PostLink = ({
           </div>
           <AuthorLabel
             author={author || intl.formatMessage(messages.anonymous)}
+            smsAuthorName={authorName}
             authorLabel={authorLabel}
             labelColor={authorLabelColor && `text-${authorLabelColor}`}
           />
