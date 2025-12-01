@@ -14,6 +14,7 @@ import { selectAuthorAvatar } from '../../../posts/data/selectors';
 
 const CommentHeader = ({
   author,
+  smsAuthorName,
   authorLabel,
   abuseFlagged,
   closed,
@@ -51,6 +52,7 @@ const CommentHeader = ({
         />
         <AuthorLabel
           author={author}
+          smsAuthorName={smsAuthorName}
           authorLabel={authorLabel}
           labelColor={colorClass && `text-${colorClass}`}
           linkToProfile
@@ -64,6 +66,7 @@ const CommentHeader = ({
 
 CommentHeader.propTypes = {
   author: PropTypes.string.isRequired,
+  smsAuthorName: PropTypes.string,
   authorLabel: PropTypes.string,
   abuseFlagged: PropTypes.bool.isRequired,
   closed: PropTypes.bool,
@@ -76,6 +79,7 @@ CommentHeader.propTypes = {
 };
 
 CommentHeader.defaultProps = {
+  smsAuthorName: null,
   authorLabel: null,
   closed: undefined,
   lastEdit: null,

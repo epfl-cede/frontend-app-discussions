@@ -7,7 +7,6 @@ import { generatePath, Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 
 import { getConfig } from '@edx/frontend-platform';
-import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 import { useIntl } from '@edx/frontend-platform/i18n';
 
 import { Routes } from '../../data/constants';
@@ -18,6 +17,7 @@ import timeLocale from './time-locale';
 
 const AuthorLabel = ({
   author,
+  smsAuthorName,
   authorLabel,
   linkToProfile,
   labelColor,
@@ -30,10 +30,7 @@ const AuthorLabel = ({
   const intl = useIntl();
   const { courseId, enableInContextSidebar } = useContext(DiscussionContext);
   const { icon, authorLabelMessage } = useMemo(() => getAuthorLabel(intl, authorLabel), [authorLabel]);
-  let displayname = author;
-  if (getConfig().CATALOG_BASE_URL && getAuthenticatedUser().name) {
-    displayname = getAuthenticatedUser().name;
-  }
+  const displayname = (getConfig().CATALOG_BASE_URL && smsAuthorName) ? smsAuthorName : author;
 
   const isRetiredUser = author ? author.startsWith('retired__user') : false;
   const showTextPrimary = !authorLabelMessage && !isRetiredUser && !alert;
@@ -53,7 +50,7 @@ const AuthorLabel = ({
     >
       {isRetiredUser ? '[Deactivated]' : displayname}
     </span>
-  ), [author, authorLabelMessage, isRetiredUser]);
+  ), [displayname, authorLabelMessage, isRetiredUser]);
 
   const labelContents = useMemo(() => (
     <>
@@ -152,6 +149,7 @@ const AuthorLabel = ({
 
 AuthorLabel.propTypes = {
   author: PropTypes.string.isRequired,
+  smsAuthorName: PropTypes.string,
   authorLabel: PropTypes.string,
   linkToProfile: PropTypes.bool,
   labelColor: PropTypes.string,
@@ -162,6 +160,7 @@ AuthorLabel.propTypes = {
 };
 
 AuthorLabel.defaultProps = {
+  smsAuthorName: null,
   linkToProfile: false,
   authorLabel: null,
   labelColor: '',

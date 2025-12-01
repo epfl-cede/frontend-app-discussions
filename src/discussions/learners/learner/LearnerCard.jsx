@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 
 import capitalize from 'lodash/capitalize';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { getConfig } from '@edx/frontend-platform';
-import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 
 import { Routes } from '../../../data/constants';
 import DiscussionContext from '../../common/context';
@@ -18,15 +18,14 @@ const LearnerCard = ({ learner }) => {
     username, threads, inactiveFlags, activeFlags, responses, replies,
   } = learner;
   const { enableInContextSidebar, learnerUsername, courseId } = useContext(DiscussionContext);
+  const learnerProfiles = useSelector((state) => state.learners.learnerProfiles);
+  const learnerProfile = learnerProfiles[username];
   const linkUrl = discussionsPath(Routes.LEARNERS.POSTS, {
     0: enableInContextSidebar ? 'in-context' : undefined,
     learnerUsername: learner.username,
     courseId,
   })();
-  let displayname = capitalize(username);
-  if (getConfig().CATALOG_BASE_URL && getAuthenticatedUser().name) {
-    displayname = getAuthenticatedUser().name;
-  }
+  const displayname = (getConfig().CATALOG_BASE_URL && learnerProfile?.name) ? learnerProfile.name : capitalize(username);
 
   return (
     <Link

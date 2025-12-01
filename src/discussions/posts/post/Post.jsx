@@ -32,7 +32,7 @@ const Post = ({ handleAddResponseButton, openRestrictionDialogue }) => {
   const { enableInContextSidebar, postId } = useContext(DiscussionContext);
   const {
     topicId, abuseFlagged, closed, pinned, voted, hasEndorsed, following, closedBy, voteCount, groupId, groupName,
-    closeReason, authorLabel, type: postType, author, title, createdAt, renderedBody, lastEdit, editByLabel,
+    closeReason, authorLabel, type: postType, author, authorName, title, createdAt, renderedBody, lastEdit, editByLabel,
     closedByLabel, users: postUsers,
   } = useSelector(selectThread(postId));
   const intl = useIntl();
@@ -180,6 +180,7 @@ const Post = ({ handleAddResponseButton, openRestrictionDialogue }) => {
       <PostHeader
         abuseFlagged={abuseFlagged}
         author={author}
+        smsAuthorName={authorName}
         authorLabel={authorLabel}
         closed={closed}
         createdAt={createdAt}
