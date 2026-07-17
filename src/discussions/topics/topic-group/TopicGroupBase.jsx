@@ -65,14 +65,14 @@ const TopicGroupBase = ({
 
   return (
     <div
-      className="discussion-topic-group d-flex flex-column text-primary-500"
+      className="discussion-topic-group d-flex flex-column"
       data-category-id={groupId}
       data-testid="topic-group"
     >
       <div className="pt-2.5 px-4 font-weight-bold">
         {linkToGroup && groupId ? (
           <Link
-            className="text-decoration-none text-primary-500"
+            className="text-decoration-none"
             to={`${pathname}${enableInContextSidebar ? search : ''}`}
           >
             {groupTitle}
