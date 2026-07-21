@@ -29,8 +29,6 @@ import 'tinymce/plugins/image';
 import 'tinymce/plugins/imagetools';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/lists';
-import 'tinymce/plugins/emoticons';
-import 'tinymce/plugins/emoticons/js/emojis';
 import 'tinymce/plugins/charmap';
 import 'tinymce/plugins/paste';
 /* eslint import/no-webpack-loader-syntax: off */
@@ -136,14 +134,13 @@ const TinyMCEEditor = (props) => {
           a11y_advanced_options: true,
           autosave_interval: '1s',
           autosave_restore_when_empty: false,
-          plugins: 'autoresize autosave codesample link lists image imagetools code emoticons charmap paste',
+          plugins: 'autoresize autosave codesample link lists image imagetools code charmap paste',
           toolbar: 'undo redo'
                       + ' | formatselect | bold italic underline'
                       + ' | link blockquote openedx_code image'
                       + ' | bullist numlist outdent indent'
                       + ' | removeformat'
                       + ' | openedx_html'
-                      + ' | emoticons'
                       + ' | charmap',
           content_css: false,
           content_style: contentStyle,
